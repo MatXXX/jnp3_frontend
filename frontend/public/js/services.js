@@ -21,7 +21,7 @@ angular.module('JNPAPP')
             return this.friends;
         };
     }])
-    .service('CurrentUserService', ['User', 'UserPosts', 'UserFriends', 'Post', function(User, UserPost, UserFriends, Post) {
+    .service('CurrentUserService', ['$cookies', 'User', 'UserPosts', 'UserFriends', 'Post', function($cookies, User, UserPost, UserFriends, Post) {
         var user = User.get({'username': 'current'});
         this.getUser = function() {
             return user;
@@ -42,7 +42,12 @@ angular.module('JNPAPP')
             }, function (rejection) {
                 onError(rejection);
             });
-        }
+        };
+
+        this.logout = function() {
+            $cookies.remove('Authorization');
+            window.location = '/login.html';
+        };
     }])
     .service('WallService', ['$http', 'Post', function($http, Post) {
         this.getPosts = function(pageNumber, onSuccess, onError) {

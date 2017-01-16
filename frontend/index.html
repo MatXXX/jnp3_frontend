@@ -18,17 +18,18 @@
 <header>
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="CurrentUserController">
 <div class="row">
-    <div class="col-sm-3">Hello {{ username }}!</div>
-    <div class="col-sm-3"><a ui-sref="wall" href="#">Main Page</a></div>
-    <div class="col-sm-3"><a ui-sref="userDetails.posts({username: 'current'})" href="#">Your profile</a></div>
-    <div class="col-sm-3"><a ui-sref="userDetails.friends({username: 'current'})" href="#">Your friends</a></div>
+    <div class="col-sm-2">Hello {{ username }}!</div>
+    <div class="col-sm-2"><a ui-sref="wall" href="#">Main Page</a></div>
+    <div class="col-sm-2"><a ui-sref="userDetails.posts({username: username})" href="#">Your profile</a></div>
+    <div class="col-sm-2"><a ui-sref="userDetails.friends({username: username})" href="#">Your friends</a></div>
+    <div class="col-sm-2 pull-right"><a href="#" ng-click="logout()">Logout</a></div>
 </div>
 </header>
 <div class="row">
-<div class="col-sm-8" ui-view></div>
-<div ng-controller="CurrentUserController">
-<div class="col-sm-4" ng-include="'pages/friendsSideBar.html'" ></div>
-</div>
+    <div class="col-sm-8" ui-view></div>
+    <div ng-controller="CurrentUserController">
+    <div class="col-sm-4" ng-include="'pages/friendsSideBar.html'" ></div>
+    </div>
 </div>
 <script>
 var app = angular.module('JNPAPP.api');

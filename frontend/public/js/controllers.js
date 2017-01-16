@@ -19,6 +19,12 @@ angular.module('JNPAPP')
             });
         };
 
+        $scope.logout = function(){
+            $scope.user = undefined;
+            CurrentUserService.logout();
+        };
+
+
     }])
     .controller('WallPostsController', ['$scope', 'WallService', 'Post', function($scope, WallService, Post) {
         $scope.posts = [];

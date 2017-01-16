@@ -33,11 +33,4 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
                         $scope.loginError = data.data;
                     });
         };
-
-        $scope.Logout = function(){
-            api.auth.logout(function(){
-                $scope.user = undefined;
-                $cookies.remove('Authorization');
-            });
-        };
     }])
