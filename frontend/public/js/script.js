@@ -33,6 +33,11 @@ angular.module('JNPAPP', ['ngCookies', 'ui.router', 'JNPAPP.api'])
                     }
                 }
             })
+            .state('searchResult', {
+                url: '/search/:query',
+                templateUrl: 'pages/searchResult.html',
+                controller: 'SearchResultController'
+            })
        $urlRouterProvider.otherwise('/');
     }])
     .run(function($http, $cookies) {

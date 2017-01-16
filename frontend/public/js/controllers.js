@@ -3,7 +3,7 @@ angular.module('JNPAPP')
         $scope.currentUser = CurrentUserService.getUser();
         $scope.currentUser.$promise.then(function (response) {
             $scope.username = response.username;
-        })
+        });
         $scope.friends = CurrentUserService.getFriends();
         $scope.newFriend = new UserFriends();
         $scope.newFriendError = null;
@@ -23,8 +23,6 @@ angular.module('JNPAPP')
             $scope.user = undefined;
             CurrentUserService.logout();
         };
-
-
     }])
     .controller('WallPostsController', ['$scope', 'WallService', 'Post', function($scope, WallService, Post) {
         $scope.posts = [];
@@ -71,4 +69,18 @@ angular.module('JNPAPP')
     }])
     .controller('UserFriendsController', ['$scope', '$stateParams', 'UserService', function($scope, $stateParams, UserService) {
         $scope.friends = UserService.getFriends($stateParams.username);
+    }])
+    .controller('ElasticSearchController', ['$scope', '$state', function($scope, $state) {
+        $scope.elasticSearchQuery = "";
+        $scope.search = function() {
+            $state.go('searchResult', {query: $scope.elasticSearchQuery}, {reload: true});
+        }
+    }])
+    .controller('SearchResultController', ['$scope', '$stateParams', 'ElasticSearchService', function($scope, $stateParams, ElasticSearchService) {
+        ElasticSearchService.search($scope.elasticSearchQuery, function(result) {
+            $scope.posts = result;
+        },
+        function (failure) {
+            alert(failure);
+        });
     }])

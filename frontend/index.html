@@ -18,11 +18,24 @@
 <header>
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="CurrentUserController">
 <div class="row">
-    <div class="col-sm-2">Hello {{ username }}!</div>
-    <div class="col-sm-2"><a ui-sref="wall" href="#">Main Page</a></div>
-    <div class="col-sm-2"><a ui-sref="userDetails.posts({username: username})" href="#">Your profile</a></div>
-    <div class="col-sm-2"><a ui-sref="userDetails.friends({username: username})" href="#">Your friends</a></div>
-    <div class="col-sm-2 pull-right"><a href="#" ng-click="logout()">Logout</a></div>
+    <div class="col-sm-1">Hello {{ username }}!</div>
+    <div class="col-sm-1"><a ui-sref="wall" href="#">Main Page</a></div>
+    <div class="col-sm-3" ng-controller="ElasticSearchController">
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="elasticsearchQuery" placeholder="Search...">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" ng-click="search()">Search</button>
+            </div>
+
+            <p ng-repeat="(name, errs) in newPostError" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
+        </form>
+
+    </div>
+    <div class="col-sm-1"><a ui-sref="userDetails.posts({username: username})" href="#">Your profile</a></div>
+    <div class="col-sm-1"><a ui-sref="userDetails.friends({username: username})" href="#">Your friends</a></div>
+    <div class="col-sm-1 pull-right"><a href="#" ng-click="logout()">Logout</a></div>
 </div>
 </header>
 <div class="row">

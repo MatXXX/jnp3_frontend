@@ -79,3 +79,24 @@ angular.module('JNPAPP')
 
         return this;
     }])
+    .service('ElasticSearchService', ['$http', 'Post', function($http, Post) {
+        var randStr = function(n) {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for( var i=0; i < n; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        };
+        
+        this.search = function(query, onSuccess, onFailure) {
+            p1 = new Post();
+            p1.author = { username: "MOCK" };
+            p1.body = randStr(20);
+            p2 = new Post();
+            p2.author = { username: "MOCK2" };
+            p2.body = randStr(20);
+            onSuccess([p1, p2]);
+        }
+    }]);

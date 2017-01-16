@@ -26,7 +26,7 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
                         $scope.userToken = data.data.token;
                         $scope.loginError = null;
                         $cookies.put('Authorization', "Token " + $scope.userToken, {'path': '/'});
-                        window.location.replace("/")
+                        window.location.replace("/");
                     }).then(function(){
                         $scope.loginError = null;
                     }, function(data) {
