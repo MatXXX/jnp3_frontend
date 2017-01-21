@@ -1,6 +1,14 @@
 {
-	"name": "JNPappi",
-	"dependencies": {
-		"express": "^4.13.4"
-	}
+  "name": "JNPappi",
+  "version": "1.0.0",
+  "description": "jnp app frontend",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "grunt": "1.0.0",
+    "grunt-aws": "^0.6.2",
+    "grunt-contrib-connect": "^1.0.2"
+  }
 }

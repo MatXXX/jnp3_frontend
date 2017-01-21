@@ -2,3 +2,4 @@
 .code
 *.pyc
 db.sqlite3
+.S3-keys.json
