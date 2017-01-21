@@ -93,20 +93,24 @@ angular.module('JNPAPP')
                 })
         }
     }])
-    .factory('ChatFactory', ['$websocket', '$rootScope', '$cookies', function($websocket, $rootScope, $cookies) {
-        var conn = $websocket(wsUrl);
-
+    .factory('ChatFactory', ['$websocket', '$rootScope', '$cookies', 'CurrentUserService', function($websocket, $rootScope, $cookies, CurrentUserService) {
         var messages = [];
-
-        conn.onMessage(function(message) {
-            messages.push(JSON.parse(message.data));
+        var sendFunc;
+        var user = CurrentUserService.getUser().$promise.then(function(result) {
+            var conn = $websocket(wsUrl + "?" + result.username);
+            conn.onMessage(function(message) {
+                messages.push(JSON.parse(message.data));
+            });
+            sendFunc = function(data) {
+                conn.send(data);
+            };
         });
 
         var send = function(username, message) {
             messages.push({ username: 'You', message: message });
             var token = $cookies.get('Authorization')
             token = token.substring(6);
-            conn.send({ username: username, token: token, message: message });
+            sendFunc({ receiver: username, token: token, msg: message });
         };
 
         return {
