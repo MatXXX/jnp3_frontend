@@ -93,7 +93,7 @@ angular.module('JNPAPP')
                 })
         }
     }])
-    .factory('ChatFactory', ['$websocket', '$rootScope', function($websocket, $rootScope) {
+    .factory('ChatFactory', ['$websocket', '$rootScope', '$cookies', function($websocket, $rootScope, $cookies) {
         var conn = $websocket(wsUrl);
 
         var messages = [];
@@ -102,8 +102,10 @@ angular.module('JNPAPP')
             messages.push(JSON.parse(message.data));
         });
 
-        var send = function(username, token, message) {
+        var send = function(username, message) {
             messages.push({ username: 'You', message: message });
+            var token = $cookies.get('Authorization')
+            token = token.substring(6);
             conn.send({ username: username, token: token, message: message });
         };
 

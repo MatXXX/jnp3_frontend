@@ -85,14 +85,14 @@ angular.module('JNPAPP')
             alert(failure);
         });
     }])
-    .controller('ChatController', ['$scope', '$rootScope', 'ChatFactory', function ($scope, $rootScope, ChatFactory) {
+    .controller('ChatController', ['$scope', 'ChatFactory', function ($scope, ChatFactory) {
         $scope.chatUser = null;
         $scope.newChatMessage = null;
         $scope.messages = "";
         $scope.chat = ChatFactory;
 
         $scope.send = function() {
-            ChatFactory.send($scope.chatUser, $rootScope.token, $scope.newChatMessage);
+            ChatFactory.send($scope.chatUser, $scope.newChatMessage);
             $scope.newChatMessage = "";
         };
     }])
