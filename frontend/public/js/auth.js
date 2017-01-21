@@ -29,14 +29,23 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
         }
 
         var rejectionGoogleFunc = function(rejection) {
-            $scope.registerErrors = { Google: [ rejection.error.message == null ? rejection.error.code : rejection.error.message] }
+            if (rejection.error != null)
+                $scope.registerErrors = { Google: [ rejection.error.message == null ? rejection.error.code : rejection.error.message] }
+            else
+                $scope.registerErrors = rejection.data
             $scope.$apply();
         }
 
-        var googleRegisterFunc = function (username, email) {
-            $http.post(apiUrl + 'users/create/google/', { email: email, username: username }).then(
-                resultFunc,
-                rejectionGoogleFunc);
+        var googleRegisterFunc = function (username, email, client_id) {
+            var user = new User();
+            user.username = username.replace(/ /g, '_');
+            user.password = client_id;
+            user.email = email;
+            user.$save()
+                .then(
+                    resultFunc,
+                    rejectionGoogleFunc
+                );
         }
 
         $scope.RegisterGoogle = function() {
@@ -50,7 +59,7 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
                         hello(result.network).api('/me')
                         .then(
                             function(result) {
-                                googleRegisterFunc(result.name, result.email);
+                                googleRegisterFunc(result.name, result.email, result.id);
                             }, 
                             rejectionGoogleFunc
                         );
@@ -73,7 +82,7 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
         }
 
         $scope.Login = function() {
-            var credentials = {username: $scope.user.username, password: $scope.user.password};
+            var credentials = { username: $scope.user.username, password: $scope.user.password };
             $http.post(apiUrl + 'token/auth/', credentials)
                 .then(loginSuccessful)
                 .then(
@@ -91,8 +100,9 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
             $scope.$apply();
         }
 
-        var googleLoginFunc = function(email) {
-            $http.post(apiUrl + 'token/auth/google/', { email: email })
+        var googleLoginFunc = function(username, client_id) {
+            var credentials = { username: username.replace(/ /g, '_'), password: client_id };
+            $http.post(apiUrl + 'token/auth/', credentials)
                 .then(
                     loginSuccessful, 
                     rejectionFunc
@@ -116,7 +126,7 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
                         hello(result.network).api('/me')
                         .then(
                             function(result) {
-                                googleLoginFunc(result.email);
+                                googleLoginFunc(result.name, result.id);
                             }, 
                             rejectionFunc);
                     }, 
