@@ -7,6 +7,7 @@
 <script src="public/extern/angular-ui-router.min.js"></script>
 <link rel="stylesheet" href="public/extern/bootstrap.css">
 <script src="public/extern/ui-bootstrap.min.js"></script>
+<script src="public/extern/hello.all.min.js"></script>
 
 <script src="/public/js/api.js"></script>
 <script src="/public/js/auth.js"></script>
@@ -30,7 +31,11 @@
         <div class="form-group">
             <button class="btn btn-default" ng-click="Register()">Register</button>
         </div>
-        <p ng-repeat="(name, errs) in errors" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
+        <div class="form-group">
+            <button class="btn btn-default" ng-click="RegisterGoogle()">Register using Google+</button>
+        </div>
+        <p ng-repeat="(name, errs) in registerErrors" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
+        <p ng-bind="registerMessage" ng-hide="registerMessage==null" class="alert alert-success"></p>
 
     </form>
 </div>
@@ -47,6 +52,9 @@
         </div>
         <div class="form-group">
             <button class="btn btn-default" ng-click="Login()">Login</button>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" ng-click="LoginGoogle()">Login using Google+</button>
         </div>
         <p ng-repeat="(name, errs) in loginError" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
     </form>

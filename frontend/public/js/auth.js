@@ -75,20 +75,19 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
         $scope.Login = function() {
             var credentials = {username: $scope.user.username, password: $scope.user.password};
             $http.post(apiUrl + 'token/auth/', credentials)
+                .then(loginSuccessful)
                 .then(
-                    loginSuccessful)
-                    .then(
-                        function() {
-                            $scope.loginError = null;
-                        }, 
-                        function(data) {
-                            $scope.loginError = data.data;
-                        }
-                    );
+                    function() {
+                        $scope.loginError = null;
+                    }, 
+                    function(data) {
+                        $scope.loginError = data.data;
+                    }
+                );
         };
         
         var rejectionFunc = function(rejection) {
-            $scope.registerErrors = { Google: [ rejection.error.message == null ? rejection.error.code : rejection.error.message] }
+            $scope.registerErrors = { Google: [ rejection.error.message == null ? rejection.error.code : rejection.error.message ] }
             $scope.$apply();
         }
 
@@ -99,7 +98,7 @@ angular.module('JNPAPP.auth', ['ngCookies', 'JNPAPP.api']).
                     rejectionFunc
                 )
                 .then(
-                    function(){
+                    function() {
                         $scope.loginError = null;
                     },
                     rejectionFunc

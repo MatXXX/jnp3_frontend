@@ -77,7 +77,7 @@ angular.module('JNPAPP')
         }
     }])
     .controller('SearchResultController', ['$scope', '$stateParams', 'ElasticSearchService', function($scope, $stateParams, ElasticSearchService) {
-        ElasticSearchService.search($scope.elasticSearchQuery, function(result) {
+        ElasticSearchService.search($stateParams.query, function(result) {
             $scope.posts = result;
         },
         function (failure) {
