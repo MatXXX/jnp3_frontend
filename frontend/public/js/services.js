@@ -4,6 +4,9 @@ angular.module('JNPAPP')
             if(response.status == 401) {
                 window.location = "/login.html";
             }
+            else if(response.status == 500) {
+                alert("SERVER ERROR");
+            }
             return $q.reject(response);
         }
     })
@@ -22,7 +25,8 @@ angular.module('JNPAPP')
         };
     }])
     .service('CurrentUserService', ['$cookies', 'User', 'UserPosts', 'UserFriends', 'Post', function($cookies, User, UserPost, UserFriends, Post) {
-        var user = User.get({'username': 'current'});
+        var user = User.get({'username': 'current'})
+
         this.getUser = function() {
             return user;
         };
@@ -84,19 +88,30 @@ angular.module('JNPAPP')
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-            for( var i=0; i < n; i++ )
+            for (var i=0; i < n; i++)
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
 
             return text;
         };
         
         this.search = function(query, onSuccess, onFailure) {
-            p1 = new Post();
-            p1.author = { username: "MOCK" };
-            p1.body = randStr(20);
-            p2 = new Post();
-            p2.author = { username: "MOCK2" };
-            p2.body = randStr(20);
-            onSuccess([p1, p2]);
+            $http({
+                method: 'POST',
+                url: apiUrl + "posts/search/",
+                params: {
+                    text: query
+                }
+            }).then(function(result) {
+                x = 1
+            }, function(rejection) {
+                x = 2
+            })
+            // p1 = new Post();
+            // p1.author = { username: "MOCK" };
+            // p1.body = randStr(20);
+            // p2 = new Post();
+            // p2.author = { username: "MOCK2" };
+            // p2.body = randStr(20);
+            // onSuccess([p1, p2]);
         }
     }]);
