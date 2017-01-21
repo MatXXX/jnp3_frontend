@@ -1,8 +1,11 @@
 <!--friendsSideBar.html-->
 <div class="col-sm-4" ng-controller="CurrentUserController">
     <h1>Your friends:</h1>
-    <div ng-include="'pages/friendList.html'"></div>
-    <form class="form-inline">
+    <div ng-repeat="friend in friends">
+        <div class="friendEntry">
+            <p><a ui-sref="userDetails({username: friend.username})" href="#">{{ friend.username }}</a></p>
+        </div>
+    </div>    <form class="form-inline">
         <div class="form-group">
             <input type="text" class="form-control" ng-model="newFriend.username" placeholder="Add friend">
             <p ng-show="newFriendError['username']" ng-bind="newFriendError['username']" class="alert alert-danger"></p>

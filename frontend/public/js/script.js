@@ -1,4 +1,4 @@
-angular.module('JNPAPP', ['ngCookies', 'ui.router', 'JNPAPP.api'])
+angular.module('JNPAPP', ['ngCookies', 'ui.router', 'JNPAPP.api', 'angular-websocket'])
     .config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function($httpProvider, $stateProvider, $urlRouterProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';

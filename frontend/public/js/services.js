@@ -92,4 +92,23 @@ angular.module('JNPAPP')
                     alert(rejection.error);
                 })
         }
-    }]);
+    }])
+    .factory('ChatFactory', ['$websocket', '$rootScope', function($websocket, $rootScope) {
+        var conn = $websocket(wsUrl);
+
+        var messages = [];
+
+        conn.onMessage(function(message) {
+            messages.push(JSON.parse(message.data));
+        });
+
+        var send = function(username, token, message) {
+            messages.push({ username: 'You', message: message });
+            conn.send({ username: username, token: token, message: message });
+        };
+
+        return {
+            messages: messages,
+            send: send
+        }
+    }])

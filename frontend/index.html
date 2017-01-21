@@ -4,6 +4,7 @@
 <script src="public/extern/angular-resource.min.js"></script>
 <script src="public/extern/angular-cookies.min.js"></script>
 <script src="public/extern/angular-ui-router.min.js"></script>
+<script src="public/extern/angular-websocket.min.js"></script>
 <link rel="stylesheet" href="public/extern/bootstrap.css">
 <script src="public/extern/ui-bootstrap.min.js"></script>
 
@@ -42,6 +43,18 @@
     <div ng-controller="CurrentUserController">
     <div class="col-sm-4" ng-include="'pages/friendsSideBar.html'" ></div>
     </div>
+</div>
+<div class="chat" ng-controller="ChatController">
+    <label for="chat-user-name">User</label>
+    <input id="chat-user-name" type="text" class="col-xs-8" ng-model="chatUser" placeholder="Enter username">
+
+    <div class="chat-messages">
+        <div ng-repeat="message in chat.messages"><strong>{{ message.username }}</strong>: {{ message.message }}</div>
+    </div>
+    <form class="form-inline">
+        <input type="text" class="col-xs-8" ng-model="newChatMessage" placeholder="Type...">
+        <button class="col-xs-4" ng-click="send()">Send</button>
+    </form>
 </div>
 <script>
 var app = angular.module('JNPAPP.api');
