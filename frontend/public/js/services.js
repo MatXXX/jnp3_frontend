@@ -104,6 +104,17 @@ angular.module('JNPAPP')
             sendFunc = function(data) {
                 conn.send(data);
             };
+            conn.onClose(function(){
+                alert("close");
+            });
+
+            conn.onOpen(function(){
+                alert("open");
+            });
+
+            conn.onError(function(data){
+                alert("error");
+            })
         });
 
         var send = function(username, message) {
