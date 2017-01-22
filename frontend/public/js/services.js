@@ -99,26 +99,16 @@ angular.module('JNPAPP')
         var user = CurrentUserService.getUser().$promise.then(function(result) {
             var conn = $websocket(wsUrl + "?" + result.username);
             conn.onMessage(function(message) {
-                messages.push(JSON.parse(message.data));
+                var msg = JSON.parse(message.data);
+                messages.push(msg);
             });
             sendFunc = function(data) {
                 conn.send(data);
             };
-            conn.onClose(function(){
-                alert("close");
-            });
-
-            conn.onOpen(function(){
-                alert("open");
-            });
-
-            conn.onError(function(data){
-                alert("error");
-            })
         });
 
         var send = function(username, message) {
-            messages.push({ username: 'You', message: message });
+            messages.push({ sender: 'You', msg: message });
             var token = $cookies.get('Authorization')
             token = token.substring(6);
             sendFunc({ receiver: username, token: token, msg: message });

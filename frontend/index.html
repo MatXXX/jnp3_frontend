@@ -49,7 +49,7 @@
     <input id="chat-user-name" type="text" class="col-xs-8" ng-model="chatUser" placeholder="Enter username">
 
     <div class="chat-messages">
-        <div ng-repeat="message in chat.messages"><strong>{{ message.username }}</strong>: {{ message.message }}</div>
+        <div ng-repeat="message in chat.messages"><strong>{{ message.sender }}</strong>: {{ message.msg }}</div>
     </div>
     <form class="form-inline">
         <input type="text" class="col-xs-8" ng-model="newChatMessage" placeholder="Type...">
