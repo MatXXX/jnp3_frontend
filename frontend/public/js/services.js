@@ -108,6 +108,11 @@ angular.module('JNPAPP')
         });
 
         var send = function(username, message) {
+            if (message == null || message == "")
+                return;
+            if (username == null || username == "")
+                return;
+                
             messages.push({ sender: 'You', msg: message });
             var token = $cookies.get('Authorization')
             token = token.substring(6);
