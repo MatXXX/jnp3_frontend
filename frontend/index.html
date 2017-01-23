@@ -24,7 +24,7 @@
                 <input type="text" class="form-control" ng-model="elasticSearchQuery" placeholder="Search...">
             </div>
             <div class="form-group">
-                <button class="btn btn-default" ng-click="search()">Search</button>
+                <button class="btn btn-default" ng-disabled="!elasticSearchQuery.length" ng-click="search()">Search</button>
             </div>
             <p ng-repeat="(name, errs) in newPostError" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
         </form>
@@ -53,11 +53,5 @@
         <button class="col-xs-4" ng-click="send()">Send</button>
     </form>
 </div>
-<script>
-var app = angular.module('JNPAPP.api');
-app.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
-}]);
-</script>
 </body>
 </html>

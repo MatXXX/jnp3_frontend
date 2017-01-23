@@ -11,7 +11,7 @@
             <p ng-show="newFriendError['username']" ng-bind="newFriendError['username']" class="alert alert-danger"></p>
         </div>
         <div class="form-group">
-            <button class="btn btn-default" ng-click="addFriend()">Add Friend</button>
+            <button class="btn btn-default" ng-disabled="!newFriend.username.length" ng-click="addFriend()">Add Friend</button>
         </div>
     </form>
 </div>

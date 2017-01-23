@@ -50,12 +50,5 @@
         <p ng-repeat="(name, errs) in loginError" class="alert alert-danger"><strong>{{ name }}</strong>: {{ errs.join(', ') }}</p>
     </form>
 </div>
-
-<script>
-var app = angular.module('JNPAPP.api');
-app.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
-}]);
-</script>
 </body>
 </html>
