@@ -6,6 +6,8 @@ module.exports = function(grunt) {
   // Static Webserver
   grunt.loadNpmTasks('grunt-contrib-connect');
 
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+
   // Project configuration.
   grunt.initConfig({
     aws: grunt.file.readJSON('.S3-keys.json'),
@@ -45,10 +47,20 @@ module.exports = function(grunt) {
           keepalive: true
         }
       }
+    },
+    uglify: {
+       dev: {
+           files: {
+               'public/js/script.min.js': [ 'src/api.js', 'src/script.js', 'src/controllers.js', 'src/services.js' ],
+               'public/js/auth.min.js': [ 'src/api.js', 'src/auth.js' ]
+           }
+       }
     }
   });
 
   // Default task(s).
-  grunt.registerTask("default", ["connect"]);
+  grunt.registerTask("default", ["uglify", "connect"]);
+
+  grunt.registerTask("s", ["uglify", "s3"]);
 
 };

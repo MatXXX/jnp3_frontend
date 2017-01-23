@@ -40,10 +40,10 @@ angular.module('JNPAPP', ['ngCookies', 'ui.router', 'JNPAPP.api', 'angular-webso
             })
        $urlRouterProvider.otherwise('/');
     }])
-    .run(function($http, $cookies) {
+    .run(['$http', '$cookies', function($http, $cookies) {
         var auth = $cookies.get('Authorization');
         if (auth == null) {
             window.location = "/login.html";
         }
         $http.defaults.headers.common['Authorization'] = auth;
-    })
+    }])

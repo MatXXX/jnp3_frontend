@@ -1,5 +1,5 @@
 angular.module('JNPAPP')
-    .service('authInterceptor', function($q) {
+    .service('authInterceptor', ['$q', function($q) {
         this.responseError = function(response) {
             if(response.status == 401) {
                 window.location = "/login.html";
@@ -9,7 +9,7 @@ angular.module('JNPAPP')
             }
             return $q.reject(response);
         }
-    })
+    }])
     .service('UserService', ['User', 'UserPosts', 'UserFriends', function(User, UserPost, UserFriends) {
         this.getUser = function(username) {
             return User.get({'username': username});
