@@ -58,6 +58,7 @@ angular.module('JNPAPP', ['ngCookies', 'ui.router', 'JNPAPP.api', 'angular-webso
                 var el = e.target;
 
                 if ((el.scrollHeight - el.scrollTop) === clientHeight) { // fully scrolled
+                    console.log('bottom hit');
                     scope.$apply(func);
                 }
             });
