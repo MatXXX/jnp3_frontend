@@ -1,5 +1,7 @@
 body {
     background: whitesmoke;
+    padding-top: 70px; 
+    overflow: hidden
 }
 .post {
     background-color: white;
@@ -29,4 +31,9 @@ body {
     resize: none;
     overflow: auto;
     word-wrap: break-word;
+}
+
+.main {
+    overflow-y:scroll; 
+    height: 100%;
 }

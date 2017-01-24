@@ -9,10 +9,10 @@
 <script src="public/extern/ui-bootstrap.min.js"></script>
 
 <script src="/public/js/script.min.js"></script>
-<link rel="stylesheet" href="/public/css/index_style.css">
+<link rel="stylesheet" href="/public/css/index_style.min.css">
 </head>
 
-<body ng-app="JNPAPP" class="container-fluid" style="padding-top: 70px;">
+<body ng-app="JNPAPP" class="container-fluid">
 <header>
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="CurrentUserController">
 <div class="row">
@@ -36,7 +36,7 @@
 </div>
 </header>
 <div class="row">
-    <div class="col-sm-8" ui-view></div>
+    <div class="col-sm-8 main" ui-view exec-on-scroll-to-bottom="handleScrollToBottom"></div>
     <div ng-controller="CurrentUserController">
     <div class="col-sm-4" ng-include="'pages/friendsSideBar.html'" ></div>
     </div>

@@ -7,6 +7,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   // Project configuration.
   grunt.initConfig({
@@ -55,12 +56,19 @@ module.exports = function(grunt) {
                'public/js/auth.min.js': [ 'src/api.js', 'src/auth.js' ]
            }
        }
+    },
+    cssmin: {
+      dev: {
+        files: {
+          'public/css/index_style.min.css': [ 'src/css/index_style.css']
+        }
+      }
     }
   });
 
   // Default task(s).
-  grunt.registerTask("default", ["uglify", "connect"]);
+  grunt.registerTask("default", ["cssmin", "uglify", "connect"]);
 
-  grunt.registerTask("s", ["uglify", "s3"]);
+  grunt.registerTask("s", ["cssmin", "uglify", "s3"]);
 
 };

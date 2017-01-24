@@ -47,3 +47,20 @@ angular.module('JNPAPP', ['ngCookies', 'ui.router', 'JNPAPP.api', 'angular-webso
         }
         $http.defaults.headers.common['Authorization'] = auth;
     }])
+    .directive('execOnScrollToBottom', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+            var func = scope.$eval(attrs.execOnScrollToBottom);
+            var clientHeight = element[0].clientHeight;
+
+            element.on('scroll', function (e) {
+                var el = e.target;
+
+                if ((el.scrollHeight - el.scrollTop) === clientHeight) { // fully scrolled
+                    scope.$apply(func);
+                }
+            });
+            }
+        };
+    });

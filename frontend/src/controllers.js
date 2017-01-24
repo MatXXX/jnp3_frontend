@@ -61,6 +61,10 @@ angular.module('JNPAPP')
         }
 
         $scope.getPosts();
+
+        $scope.handleScrollToBottom = function () {
+            $scope.getPosts();
+        };
     }])
     .controller('UserDetailController', ['$scope', '$stateParams', 'UserService', function($scope, $stateParams, UserService) {
         $scope.username = $stateParams.username;
